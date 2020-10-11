@@ -14,11 +14,11 @@ function App(): JSX.Element {
   const handleSubmit = (e: FormElement) => {
     e.preventDefault();
     addTask(newTask);
-    console.log(tasks)
+    setNewTask('');
   }
 
   const addTask = (name: string) => {
-    const newTasks: ITask[] = [...tasks, {name, done: false}];
+    const newTasks: ITask[] = [...tasks, { name, done: false }];
     setTasks(newTasks);
   }
 
@@ -27,10 +27,24 @@ function App(): JSX.Element {
       <div className="App">
         <header className="App-header">
           <h1>Add new tasks</h1>
-          <form onSubmit={handleSubmit}>
-            <input type="text" onChange={e => setNewTask(e.target.value)}/>
-            <button>Save</button>
-          </form>
+          <div className="card">
+            <div className="card-body">
+              <form onSubmit={handleSubmit}>
+                <input 
+                  type="text" 
+                  onChange={e => setNewTask(e.target.value)} 
+                  value={newTask} 
+                  className="form-control"
+                />
+                <button className="btn btn-primary btn-block mt-2">Save</button>
+                {
+                  tasks.map((task: ITask, id: number) => {
+                    return <h1 key={id}>{task.name}</h1>
+                  })
+                }
+              </form>
+            </div>
+          </div>
         </header>
       </div>
     </Fragment>
