@@ -27,23 +27,33 @@ function App(): JSX.Element {
       <div className="App">
         <header className="App-header">
           <h1>Add new tasks</h1>
-          <div className="card">
+          <div className="card bg-dark col-md-6">
             <div className="card-body">
               <form onSubmit={handleSubmit}>
-                <input 
-                  type="text" 
-                  onChange={e => setNewTask(e.target.value)} 
-                  value={newTask} 
+                <input
+                  type="text"
+                  onChange={e => setNewTask(e.target.value)}
+                  value={newTask}
                   className="form-control"
+                  autoFocus
                 />
                 <button className="btn btn-primary btn-block mt-2">Save</button>
-                {
-                  tasks.map((task: ITask, id: number) => {
-                    return <h1 key={id}>{task.name}</h1>
-                  })
-                }
               </form>
             </div>
+            {
+              tasks.map((task: ITask, id: number) => (
+                <div className="card card-body bg-secondary mb-2" key={id}>
+                  <h3 style={{
+                    textDecoration: task.done ? 'line-through' : ''
+                  }}>{task.name}</h3>
+                  <div>
+                    <button className="btn btn-success">
+                      {task.done ? '❌' : '✅'}
+                    </button>
+                  </div>
+                </div>
+              ))
+            }
           </div>
         </header>
       </div>
