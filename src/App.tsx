@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useRef } from 'react';
 import './App.css';
 
 type FormElement = React.FormEvent<HTMLFormElement>;
@@ -10,11 +10,13 @@ interface ITask {
 function App(): JSX.Element {
   const [newTask, setNewTask] = useState<string>('');
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const taskInput = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: FormElement) => {
     e.preventDefault();
     addTask(newTask);
     setNewTask('');
+    taskInput.current?.focus();
   }
 
   const addTask = (name: string): void => {
@@ -47,6 +49,7 @@ function App(): JSX.Element {
                   onChange={e => setNewTask(e.target.value)}
                   value={newTask}
                   className="form-control"
+                  ref={taskInput}
                   autoFocus
                 />
                 <button className="btn btn-primary btn-block mt-2">Save</button>
@@ -60,7 +63,7 @@ function App(): JSX.Element {
                     color: task.done ? 'black' : ''
                   }}>{task.name}</h3>
                   <div>
-                    <button className={task.done ? 'btn btn-warning' : 'btn btn-success'} 
+                    <button className={task.done ? 'btn btn-warning' : 'btn btn-success'}
                       onClick={() => toggleDoneTask(id)}>
                       {task.done ? '❌' : '✅'}
                     </button>
