@@ -4,7 +4,7 @@ Practical example to learn to use Typescript together with Reactjs
 
 ## preview
 
-[Screen](./public/screen.png)
+![Screen](./public/screen.png)
 
 ## Available Scripts
 
